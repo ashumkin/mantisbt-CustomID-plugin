@@ -1,0 +1,7 @@
+<?php
+
+$s_plugin_CustomID_plugin_title="CustomID";
+$s_plugin_CustomID_config="Configuration";
+$s_plugin_CustomID_project_name="Project Name";
+$s_plugin_CustomID_update_config="Update Configuration";
+$s_plugin_CustomID_config_prefix="Prefix";
