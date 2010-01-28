@@ -30,10 +30,9 @@ class CustomIDPlugin extends MantisPlugin {
         	'prefix' => "",
         );
     }
-	
-    
     
 	function display_bug_id($p_event, $p_text) {
+
 		$p_bug_id = (int)$p_text;
 		
 		$bug = bug_get($p_bug_id);
@@ -45,6 +44,7 @@ class CustomIDPlugin extends MantisPlugin {
 		$p_field_id = plugin_config_get('field_id');
 		$prefix = plugin_config_get('prefix');
 		
+		$p_def = custom_field_get_definition($p_field_id);
 		$t_custom_field_value = custom_field_get_value( $p_field_id, $p_bug_id );
 		global $g_custom_field_type_definition;
 		if( isset( $g_custom_field_type_definition[$p_def['type']]['#function_string_value'] ) ) {
