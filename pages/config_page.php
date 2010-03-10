@@ -61,11 +61,21 @@ print_manage_menu( );
 	</td>
 </tr>
 
+<tr <?php echo helper_alternate_class() ?> >
+	<td class="category" width="60%">
+		<?php echo plugin_lang_get( 'config_prefix_two' ) ?>
+	</td>
+	<td width="20%">
+		<input name="customid_prefix_two" size="30" value="<?php echo plugin_config_get('prefix_two') ?>">
+	</td>
+</tr>
 <tr>
 	<td class="center" colspan="2">
 		<input type="submit" class="button" value="<?php echo plugin_lang_get( 'update_config' ) ?>" />
 	</td>
 </tr>
+
+
 </table>
 
 </form>
