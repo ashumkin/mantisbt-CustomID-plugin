@@ -35,7 +35,8 @@ class CustomIDPlugin extends MantisPlugin {
     
 	function display_bug_id($p_event, $p_text) {
 		$p_bug_id = (int)$p_text;
-		
+		if (!bug_exists($p_bug_id))
+			return $p_text;
 		$bug = bug_get($p_bug_id);
 		$project = $bug->__get("project_id");
 		
@@ -44,6 +45,27 @@ class CustomIDPlugin extends MantisPlugin {
 		
 		$p_field_id = plugin_config_get('field_id');
 		$prefix = plugin_config_get('prefix');
+	    
+		$has_parent = false;
+		
+	    $t_bugs_ids = relationship_get_all_src( $p_bug_id);
+		foreach ($t_bugs_ids as $t_relaship){
+			if( $t_relaship->type == BUG_BLOCKS) {
+				$has_parent = true;;
+				break;
+			}
+		}
+
+		$t_bugs_ids = relationship_get_all_dest( $p_bug_id);
+		foreach ($t_bugs_ids as $t_relaship){
+			if( $t_relaship->type == BUG_DEPENDANT) {
+				$has_parent = true;;
+				break;
+			}
+		}
+		$prefix_two = plugin_config_get('prefix_two');
+		if ($has_parent)
+			$prefix = $prefix_two;
 		
 		$t_custom_field_value = custom_field_get_value( $p_field_id, $p_bug_id );
 		global $g_custom_field_type_definition;
